@@ -1,0 +1,12 @@
+
+{% extends 'core/base.html'%}
+
+{% block content %}
+<form method="get" action="{% url 'cart:cart' %}">
+
+{% for item in cart_items %}
+    <p>{{ item.Item }} - {{ item.quantity }} </p>
+
+{% endfor %}
+
+{% endblock %}
