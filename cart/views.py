@@ -28,7 +28,10 @@ def add_to_cart(request, product_id):
 def cart_view(request):
     user_cart = Cart.objects.get(user=request.user)
     cart_items = CartItem.objects.filter(cart=user_cart)
+    #total_price_item = cart_items * Item.quantity 
+    print('cart_items' ,cart_items)
     return render(request, 'cart.html', {'cart_items': cart_items})
+
 
 def remove_from_cart(request, product_id):
     cart = Cart.objects.get(user=request.user)  

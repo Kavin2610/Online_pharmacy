@@ -5,8 +5,8 @@
 <form method="get" action="{% url 'cart:cart_view' %}">
 
 {% for item in cart_items %}
-    <img src="{{item.Item.image.urls}}">
-    <p>{{ item.Item }} - {{ item.quantity }} - {{ item.Item.price }} - {{ item.item.description }} </p>
+    <img src="{{item.item_image}}">
+    <p>{{ item.Item }} - {{ item.quantity }} - {{ item.total_price }} - {{ item.item.description }}  </p>
 
 {% endfor %}
 
