@@ -1,0 +1,15 @@
+{% extends 'core/base.html'%}
+{% block title %} Checkout {% endblock %}
+
+{% block content%}
+<div class=checkoutform>
+<form method="post" action="{% url "cart:submit"%}">
+    {% csrf_token %}
+
+    {{ form.as_p }}<br>
+    
+    <input type="submit" value="Submit">
+</form>
+</div>
+
+{%endblock%}
