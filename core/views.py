@@ -44,3 +44,8 @@ def terms(request):
 
 def test(request):
     return render(request, 'core/test.html')
+
+def Checkout(request):
+    form = CheckoutForm
+
+    return render(request, 'checkout.html', {'form': form})

@@ -2,11 +2,14 @@
 {% extends 'core/base.html'%}
 
 {% block content %}
-<form method="get" action="{% url 'cart:cart' %}">
+<form method="get" action="{% url 'cart:cart_view' %}">
 
 {% for item in cart_items %}
-    <p>{{ item.Item }} - {{ item.quantity }} </p>
+    <img src="{{item.Item.image.urls}}">
+    <p>{{ item.Item }} - {{ item.quantity }} - {{ item.Item.price }} - {{ item.item.description }} </p>
 
 {% endfor %}
+
+<a href="{% url 'cart:checkout' %}" class="text-lg font-semibold hover: text-gray- 500">Checkout</a>
 
 {% endblock %}
