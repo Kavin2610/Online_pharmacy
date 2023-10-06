@@ -1,15 +1,28 @@
-
 {% extends 'core/base.html'%}
-
+{% block title%} Cart {% endblock %}
+{% block extra_head%}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/cart.css'%}">
+{% endblock%}
 {% block content %}
 <form method="get" action="{% url 'cart:cart_view' %}">
-
+<p>   You're Items are </p>
+<div class="cart-container">
 {% for item in cart_items %}
     <img src="{{item.item_image}}">
-    <p>{{ item.Item }} - {{ item.quantity }} - {{ item.total_price }} - {{ item.item.description }}  </p>
+    <p style ="">Name : {{ item.Item }} </p>
+    <p>  Quantity : {{ item.quantity }} </p>
+    <p> Price : {{ item.total_price }}  </p>
 
 {% endfor %}
 
 <a href="{% url 'cart:checkout' %}" class="text-lg font-semibold hover: text-gray- 500">Checkout</a>
 
-{% endblock %}
+
+
+</div>
+
+<div class= "text">
+    <p> test </p>
+</div>
+{%endblock%}

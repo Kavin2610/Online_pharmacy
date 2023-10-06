@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Item
+from .models import Item, Rating, Prescription
 
 INPUT_CLASSES = 'w-full py-4 px-6 rounded-xl border'
 
@@ -44,3 +44,15 @@ class EditItemForm(forms.ModelForm):
                 'class': INPUT_CLASSES
             })
         }
+
+
+
+class RatingForm(forms.ModelForm):
+    class Meta:
+        model = Rating
+        fields = ['score', 'comment']
+
+class PrescriptionForm(forms.ModelForm):
+    class Meta:
+        model = Prescription
+        fields = ['patient_name','prescription_images','prescription_pdf']

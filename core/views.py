@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 
 from item.models import Category, Item
 
+
 from .forms import SignupForm
 
 def index(request):
@@ -44,6 +45,8 @@ def terms(request):
 
 def test(request):
     return render(request, 'core/test.html')
+
+
 
 def Checkout(request):
     form = CheckoutForm

@@ -1,5 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.core.validators import MinValueValidator, MaxValueValidator
+
 
 class Category(models.Model):
     name = models.CharField(max_length=255)
@@ -26,7 +28,15 @@ class Item(models.Model):
     
 class Prescription(models.Model):
     patient_name = models.ForeignKey(User, related_name='user', on_delete=models.CASCADE)
-    prescription_images = models.ImageField(upload_to='prescription_images')
+    prescription_images = models.ImageField(upload_to='prescription_images', null=True, blank=True )
+    prescription_pdf = models.FileField(upload_to='prescription_pdf', null=True, blank=True)
 
-    # def __str__(self):
-    #     return self.patient_name
+    #def __str__(self):
+       #return self.patient_name
+
+class Rating(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    product = models.ForeignKey(Item, on_delete=models.CASCADE)
+    score = models.PositiveSmallIntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
+    comment = models.TextField(null=True, blank=True)  
+    created_at = models.DateTimeField(auto_now_add=True)

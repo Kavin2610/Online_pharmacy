@@ -1,0 +1,10 @@
+.container{
+    display: flex;
+    max-width: 600px;
+    margin: 0 auto;
+    flex-direction : column;
+}
+
+.test{
+    color: green;
+}

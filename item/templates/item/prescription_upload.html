@@ -1,0 +1,19 @@
+{% extends 'core/base.html'%}
+{% load static%}
+{% block title%} Prescription Upload {% endblock%}
+
+{% block content %}
+<div style="text-align: center">
+    <h1 style="font-size: 30px; color: #00ff00;"><strong> Upload your prescription here</strong> </h1>
+    </div>
+
+    <div class="container">
+        <form method="POST" action="{% url "item:prescription_upload"%}">
+            {% csrf_token %}
+        
+            {{ form.as_p }}<br>
+            
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+{% endblock %}

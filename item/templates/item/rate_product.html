@@ -1,0 +1,15 @@
+{% extends 'core/base.html'%}
+{% load static %}
+{%block title%}Ratings{%endblock%}
+
+{% block content%}
+<div style="margin-bottom: 10px"; >
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Submit Rating" style="background-color: green; color: white; border: none; padding: 10px 15px; cursor: pointer;" >
+</form>
+</form>
+
+
+{% endblock %}

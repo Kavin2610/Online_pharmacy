@@ -1,8 +1,9 @@
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib import messages
 
-from .forms import NewItemForm, EditItemForm
+from .forms import NewItemForm, EditItemForm, RatingForm, PrescriptionForm
 from .models import Category, Item
 
 def items(request):
@@ -77,3 +78,30 @@ def delete(request, pk):
     item.delete()
 
     return redirect('dashboard:index')
+
+
+def rate_product(request, product_id):
+    product = get_object_or_404(Item, id=product_id)
+    if request.method == 'POST':
+        form = RatingForm(request.POST)
+        if form.is_valid():
+            rating = form.save(commit=False)
+            rating.user = request.user
+            rating.product = product
+            rating.save()
+            messages.success(request, "The Ratings was successfully submitted!")
+            #return redirect('item/detail.html', product_id=product.id)
+    else:
+        form = RatingForm()
+    return render(request, 'item/rate_product.html', {'form': form, 'product': product})
+
+def prescription_upload(request):
+    if request.method == 'POST':
+        form = PrescriptionForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Prescription successfully submitted!")
+            #return render(request, 'core/index.h')
+    else:
+        form = PrescriptionForm()
+    return render(request, 'item/prescription_upload.html', {'form': form})

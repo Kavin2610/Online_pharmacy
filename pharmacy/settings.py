@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 import os
 from pathlib import Path
+import stripe
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -46,6 +47,8 @@ INSTALLED_APPS = [
     'dashboard',
     'item',
     'cart',
+    'payment',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -122,17 +125,31 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.1/howto/static-files/
+# htps://tdocs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = 'static/'
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-STATICFILES_DIR = [
-        os.path.join(BASE_DIR, "static")
-]
+STATICFILES_DIR= [BASE_DIR / 'static']
+
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+#payment gateways stipe 
+#STRIPE_PUBLIC_KEY = 'your_test_public_key'
+#STRIPE_SECRET_KEY = 'your_test_secret_key'
+
+#stripe.api_key = STRIPE_SECRET_KEY
+
+#second payment
+STRIPE_SECRET_KEY = 'sk_test_51Ny5mISFMZ7tthqyGtGIkkrXzTGqFI7KEHVKEtrTLdQAxuNtfJ543UMed9beTC0PcTNYGRjgfDzCtaiQJeYWquhm00FbcfN0rA'
+STRIPE_PUBLISHABLE_KEY = 'pk_test_51Ny5mISFMZ7tthqy2w77M32j70gq63ssblqeYY8hiOgVltO6GCREGbXaMpysuex27Tmi6J5HRas3Maiyc55waAsG00KJ619AS2'
+
+
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'  
