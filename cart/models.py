@@ -23,6 +23,7 @@ class CartItem(models.Model):
     def item_image(self):
         return self.Item.image
 
+
     class Meta:
         unique_together = ('cart', 'Item')
 

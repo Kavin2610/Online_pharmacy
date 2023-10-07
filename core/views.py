@@ -48,7 +48,7 @@ def test(request):
 
 
 
-def Checkout(request):
-    form = CheckoutForm
+# def Checkout(request):
+#     form = CheckoutForm
 
-    return render(request, 'checkout.html', {'form': form})
+#     return render(request, 'checkout.html', {'form': form})

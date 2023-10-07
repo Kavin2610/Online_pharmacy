@@ -6,23 +6,42 @@
 {% endblock%}
 {% block content %}
 <form method="get" action="{% url 'cart:cart_view' %}">
-<p>   You're Items are </p>
+<p style="color: blue">   Your Items </p>
 <div class="cart-container">
-{% for item in cart_items %}
-    <img src="{{item.item_image}}">
+{% for item in cart_items %} 
+    <!--<img src="{{item.image}}">
     <p style ="">Name : {{ item.Item }} </p>
-    <p>  Quantity : {{ item.quantity }} </p>
+    <p> Quantity : {{ item.quantity }} </p>
     <p> Price : {{ item.total_price }}  </p>
+    -->
+    <table style="width: 20%; border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th style="padding: 5px; border-bottom: 1px solid #ddd; background-color: #f2f2f2;">Item Name</th>
+                <th style="padding: 5px; border-bottom: 1px solid #ddd;  background-color: #f2f2f2;">Quantity</th>
+                <th style="padding: 5px; border-bottom: 1px solid #ddd;  background-color: #f2f2f2;">Total Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr style= "hover: background-color: #f5f5f5;">
+                <td style="padding: 5px; border-bottom: 1px solid #ddd;">{{item.Item}}</td>
+                <td style="padding: 5px; border-bottom: 1px solid #ddd;">{{item.quantity}}</td>
+                <td style="padding: 5px; border-bottom: 1px solid #ddd;">${{item.total_price}}</td>
+            </tr>
+
+        </tbody>
+    </table>
 
 {% endfor %}
+<br>
+<br>
 
-<a href="{% url 'cart:checkout' %}" class="text-lg font-semibold hover: text-gray- 500">Checkout</a>
+<a style="color: green; border-radius:2px; " href="{% url 'cart:checkout' %}" class="text-lg font-semibold hover: text-gray- 500">Checkout</a>
 
 
 
 </div>
 
-<div class= "text">
-    <p> test </p>
-</div>
+
+
 {%endblock%}

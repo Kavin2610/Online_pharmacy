@@ -47,8 +47,8 @@ INSTALLED_APPS = [
     'dashboard',
     'item',
     'cart',
-    'payment',
     'crispy_forms',
+    'payment'
 ]
 
 MIDDLEWARE = [
