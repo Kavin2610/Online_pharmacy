@@ -40,6 +40,8 @@ class checkoutdetails(models.Model):
     postalcode = models.CharField(max_length=7)
     city = models.CharField(max_length=20)
     phoneNumber = models.CharField(max_length=12)
+    country =models.CharField(max_length=20, default="India")
+    
 
     
     

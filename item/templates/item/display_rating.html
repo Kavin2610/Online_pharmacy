@@ -1,0 +1,20 @@
+
+{% extends 'core/base.html' %}
+{%block title%}{{product.name}} Rating{%endblock%}
+{% block content%}
+<section style="text-align:center; font-size:20px;">
+<h1>Name of the Product : {{ product.name }}</h1>
+<p>Average Rating: {{Ratings.score}}</p>
+<p>Description: {{comment.comment}}</p>
+
+ <h3>Individual Ratings:</h3>
+    <ul>
+        {% for ratings in average_rating %}
+            <li>{{ average_rating }}</li>
+        {% endfor %}
+    </ul>
+</section>
+
+    
+{% endblock %}
+

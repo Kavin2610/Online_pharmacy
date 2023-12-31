@@ -4,7 +4,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 
 from .forms import NewItemForm, EditItemForm, RatingForm, PrescriptionForm
-from .models import Category, Item
+from .models import Category, Item, Rating
 
 def items(request):
     query = request.GET.get('query', '')
@@ -105,3 +105,10 @@ def prescription_upload(request):
     else:
         form = PrescriptionForm()
     return render(request, 'item/prescription_upload.html', {'form': form})
+
+
+def show_rating(request, product_id):
+    product = get_object_or_404(Item, pk=product_id)
+
+    rating = Rating.objects.filter(product=product)
+    return render(request, 'item/display_rating.html', {'product': product, 'average_rating': rating})

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 
-from item.models import Category, Item
+from item.models import Category, Item, Prescription
 
 
 from .forms import SignupForm
@@ -45,6 +45,13 @@ def terms(request):
 
 def test(request):
     return render(request, 'core/test.html')
+
+def pharmacistlogin(request):
+    return render(request, 'core/pharmacist.html')
+
+def pharmacist_prescriptions(request):
+    all_prescriptions = Prescription.objects.all()
+    return render(request, 'pharmacist.html', {'prescription': all_prescriptions})
 
 
 

@@ -1,26 +1,57 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-from django.shortcuts import render
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.conf import settings
 import stripe
 
-def stripe_payment(request):
-    if request.method == 'POST':
-        
-        card_number = request.POST['card_number']
-        expiration_month = request.POST['expiration_month']
-        expiration_year = request.POST['expiration_year']
-        cvc = request.POST['cvc']
 
-        stripe.api_key = settings.STRIPE_SECRET_KEY
-        charge = stripe.Charge.create(
-            amount=1000,
-            currency='usd',
-            source=card_number,
-            expiration_month=expiration_month,
-            expiration_year=expiration_year,
-            cvc=cvc
-        )
-        return HttpResponse('Your payment was successful!')
-    else:
-      pass
+
+
+def checkout(request):
+    stripe.api_key = "sk_test_51Ny5mISFMZ7tthqyGtGIkkrXzTGqFI7KEHVKEtrTLdQAxuNtfJ543UMed9beTC0PcTNYGRjgfDzCtaiQJeYWquhm00FbcfN0rA"
+
+    if request.method == 'POST':
+        token = request.POST.get('stripeToken')
+        amount = 1000
+
+        try:
+            charge = stripe.Charge.create(
+                amount = amount,
+                currency = 'usd',
+                source=token,
+                description='example charge',
+            )
+            return render(request, 'payment/success.html')
+        except stripe.error.CardError as e:
+            return render(request, 'error.html', {'error':str(e)})
+    return render(request, 'payment/checkout.html')    
+
+#flask equivalent
+stripe.api_key = 'sk_test_51Ny5mISFMZ7tthqyGtGIkkrXzTGqFI7KEHVKEtrTLdQAxuNtfJ543UMed9beTC0PcTNYGRjgfDzCtaiQJeYWquhm00FbcfN0rA'
+
+# def create_checkout_session(request):
+#     YOUR_DOMAIN = 'http://localhost:8000' 
+#     price_id = 'price_1OOjl6SFMZ7tthqyiQqHkkHv'
+
+#     try:
+#         checkout_session = stripe.checkout.Session.create(
+#             line_items=[
+#                 {
+#                     # Provide the exact Price ID (for example, pr_1234) of the product you want to sell
+#                     'price': '{{price_id}}',
+#                     'quantity': 1,
+#                 },
+#             ],
+#             mode='payment',
+#             success_url=YOUR_DOMAIN + '/success/',
+#             cancel_url=YOUR_DOMAIN + '/cancel/',
+#         )
+#     except Exception as e:
+#         return JsonResponse({'error': str(e)}, status=500)
+
+#     return HttpResponseRedirect(redirect_to=checkout_session.url)
+
+def success(request):
+    return render(request,'payment/success.html')
+
+def cancel(request):
+    return render(request,'payment/cancel.html')

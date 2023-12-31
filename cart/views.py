@@ -56,8 +56,7 @@ def Checkout(request):
         form = CheckoutForm()
     return render(request, 'checkout.html', {'form' : form})
 
-def paymentportal(request):
-    return render(request, 'paymentportal.html')
+
 
 def submit(request):
     return render(request, 'paymentportal.html')

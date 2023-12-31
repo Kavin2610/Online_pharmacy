@@ -27,7 +27,7 @@ class Item(models.Model):
         return self.name
     
 class Prescription(models.Model):
-    patient_name = models.ForeignKey(User, related_name='user', on_delete=models.CASCADE)
+    patient_name = models.CharField(max_length=255)
     prescription_images = models.ImageField(upload_to='prescription_images', null=True, blank=True )
     prescription_pdf = models.FileField(upload_to='prescription_pdf', null=True, blank=True)
 
@@ -35,8 +35,17 @@ class Prescription(models.Model):
        #return self.patient_name
 
 class Rating(models.Model):
+    RATE_CHOICES = [
+        ('1', 'one'),
+        ('2', 'two'),
+        ('3', 'three'),
+        ('4', 'four'),
+        ('5', 'five'),
+    ]
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     product = models.ForeignKey(Item, on_delete=models.CASCADE)
-    score = models.PositiveSmallIntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
+    score = models.CharField(max_length=10, choices=RATE_CHOICES)
     comment = models.TextField(null=True, blank=True)  
     created_at = models.DateTimeField(auto_now_add=True)
+
+

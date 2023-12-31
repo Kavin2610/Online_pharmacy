@@ -3,54 +3,21 @@
 {%load static%}
 {% block content%}
 <p> this is the payment portal </p>
+  
+ 
+    <section>
+      <div class="product">
+        
+        <img src="{{item.image.url}}" alt="The cover of Stubborn Attachments" />
+        <div class="description">
+          <h3>{{item.Item}}</h3>
+          <h5>{{item.price}}</h5>
+        </div>
+      </div>
+      <form action="/create-checkout-session" method="POST">
+        <button type="submit" id="checkout-button">Checkout</button>
+      </form>
+    </section>
 
-<!-- templates/payment_page.html -->
-
-{% load crispy_forms_tags %}
-
-<script src="https://js.stripe.com/v3/"></script>
-
-<form method="post" id="payment-form">
-    {% csrf_token %}
-    {{ form|crispy }}
-    
-    <div id="card-element"></div>
-    <div id="card-errors"></div>
-    
-    <button type="submit">Submit Payment</button>
-</form>
-
-<script>
-var stripe = Stripe('{{ publishable_key }}');
-var elements = stripe.elements();
-
-var card = elements.create('card');
-card.mount('#card-element');
-
-card.addEventListener('change', function(event) {
-  var displayError = document.getElementById('card-errors');
-  if (event.error) {
-    displayError.textContent = event.error.message;
-  } else {
-    displayError.textContent = '';
-  }
-});
-
-var form = document.getElementById('payment-form');
-form.addEventListener('submit', function(event) {
-  event.preventDefault();
-
-  stripe.createToken(card).then(function(result) {
-    if (result.error) {
-      var errorElement = document.getElementById('card-errors');
-      errorElement.textContent = result.error.message;
-    } else {
-      var tokenInput = document.querySelector('input[name=stripe_token]');
-      tokenInput.value = result.token.id;
-      form.submit();
-    }
-  });
-});
-</script>
 
 {% endblock %}

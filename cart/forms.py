@@ -11,5 +11,5 @@ class CheckoutForm(forms.ModelForm):
     postalcode = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'enter your postalcode'}))
     city = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'enter your city'}))
     phoneNumber = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'enter your phoneNumber'}))
-
+    country = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'enter your country name'}))
     

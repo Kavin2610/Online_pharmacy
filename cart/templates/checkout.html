@@ -2,13 +2,13 @@
 {% block title %} Checkout {% endblock %}
 
 {% block content%}
-<div class=checkoutform>
-<form method="post" action="{% url "cart:submit"%}">
+<div class=checkoutform style="background-color:#D1FFBD; padding: 25px;">
+<form style="font-size:25px; text-align:center; font-weight: bold; padding: 25px; line-height: 1.6;" method="post" action="{% url "cart:submit"%}">
     {% csrf_token %}
 
     {{ form.as_p }}<br>
     
-    <input type="submit" value="Submit">
+    <input style="background-color: green; color: white; padding: 15px;"type="submit" value="Submit">
 </form>
 </div>
 

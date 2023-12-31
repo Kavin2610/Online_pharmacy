@@ -13,6 +13,8 @@ import os
 from pathlib import Path
 import stripe
 
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -22,6 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-j4ippt+3h39u4ontllpc8a(4h&^god(7aicz#@q^sl_(w)2otp'
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -48,8 +51,10 @@ INSTALLED_APPS = [
     'item',
     'cart',
     'crispy_forms',
-    'payment'
+    'payment',
+    'bootstrap4',
 ]
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -147,9 +152,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #stripe.api_key = STRIPE_SECRET_KEY
 
 #second payment
+STRIPE_PUBLIC_KEY = 'pk_test_51Ny5mISFMZ7tthqy2w77M32j70gq63ssblqeYY8hiOgVltO6GCREGbXaMpysuex27Tmi6J5HRas3Maiyc55waAsG00KJ619AS2'
 STRIPE_SECRET_KEY = 'sk_test_51Ny5mISFMZ7tthqyGtGIkkrXzTGqFI7KEHVKEtrTLdQAxuNtfJ543UMed9beTC0PcTNYGRjgfDzCtaiQJeYWquhm00FbcfN0rA'
-STRIPE_PUBLISHABLE_KEY = 'pk_test_51Ny5mISFMZ7tthqy2w77M32j70gq63ssblqeYY8hiOgVltO6GCREGbXaMpysuex27Tmi6J5HRas3Maiyc55waAsG00KJ619AS2'
 
 
 
-CRISPY_TEMPLATE_PACK = 'bootstrap4'  
+

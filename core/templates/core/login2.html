@@ -1,0 +1,30 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Log in{% endblock %}
+
+<form id = "loginForm" method="post" action=".">
+    <label> Username </label>
+    <input type="text" placeholder="enter your username" id="username">
+    <label> Password</label>
+    <input type="password" placeholder="enter your password" id="password">
+    <button onclick="validate">login</button>
+</form>
+
+<script>
+    function validate(){
+    var username = document.getElementById("username")
+    var password = document.getElementById("password")
+    var username2 = username.value
+    var password2 = username.password
+
+    if (username2 == ""){
+        alert("enter a valid username")
+    }
+    if (password2 == ""){
+        alert("enter a valid password")
+    }
+
+    }
+
+    
+</script>
