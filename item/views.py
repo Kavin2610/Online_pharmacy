@@ -90,7 +90,7 @@ def rate_product(request, product_id):
             rating.product = product
             rating.save()
             messages.success(request, "The Ratings was successfully submitted!")
-            #return redirect('item/detail.html', product_id=product.id)
+
     else:
         form = RatingForm()
     return render(request, 'item/rate_product.html', {'form': form, 'product': product})
@@ -112,3 +112,8 @@ def show_rating(request, product_id):
 
     rating = Rating.objects.filter(product=product)
     return render(request, 'item/display_rating.html', {'product': product, 'average_rating': rating})
+ 
+def reviews_list(request, product_id):
+    product = get_object_or_404(Item, pk=product_id)
+    reviews = Rating.objects.filter(product=product)
+    return render(request, 'item/reviews_list.html', {'reviews':reviews})

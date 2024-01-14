@@ -55,6 +55,7 @@ def pharmacist_prescriptions(request):
 
 
 
+
 # def Checkout(request):
 #     form = CheckoutForm
 

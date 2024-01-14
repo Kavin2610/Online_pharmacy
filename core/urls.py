@@ -1,5 +1,6 @@
 from django.contrib.auth import views as auth_views
 from django.urls import path
+from django.contrib.auth.views import LogoutView
 
 from . import views
 from .forms import LoginForm
@@ -16,5 +17,6 @@ urlpatterns = [
     path('terms/', views.terms, name= 'terms'),
     path('test/', views.test, name = 'test'),
     path('pharmacistlogin/',views.pharmacistlogin, name='pharmacistlogin'),
+    path('logout/', LogoutView.as_view(), name='logout'),
     
 ]

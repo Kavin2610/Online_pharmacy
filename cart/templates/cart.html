@@ -1,47 +1,73 @@
-{% extends 'core/base.html'%}
-{% block title%} Cart {% endblock %}
-{% block extra_head%}
+{% extends 'core/base.html' %}
+{% block title %} Cart {% endblock %}
+{% block extra_head %}
 {% load static %}
-<link rel="stylesheet" href="{% static 'css/cart.css'%}">
-{% endblock%}
+<link rel="stylesheet" href="{% static 'css/cart.css' %}">
+{% endblock %}
 {% block content %}
-<form method="get" action="{% url 'cart:cart_view' %}">
-<p style="color:#66ff66; font-size: 30px;">   Your Items </p>
-<div class="cart-container">
-{% for item in cart_items %} 
-    <!--<img src="{{item.image}}">
-    <p style ="">Name : {{ item.Item }} </p>
-    <p> Quantity : {{ item.quantity }} </p>
-    <p> Price : {{ item.total_price }}  </p>
-    -->
-    <table style="width: 20%; border-collapse: collapse; align-items: center; justify-content: center; margin-left: auto; margin-right: auto;">
-        <thead>
+  <form method="get" action="{% url 'cart:cart_view' %}">
+    <p style="color:#66ff66; font-size: 30px;">Your Items</p>
+    <div class="cart-container">
+      {% if cart_items %}
+        <table style="width: 20%; border-collapse: collapse; align-items: center; justify-content: center; margin-left: auto; margin-right: auto;">
+          <thead>
             <tr>
-                <th style="padding: 5px; border-bottom: 1px solid #ddd; background-color: #f2f2f2;">Item Name</th>
-                <th style="padding: 5px; border-bottom: 1px solid #ddd;  background-color: #f2f2f2;">Quantity</th>
-                <th style="padding: 5px; border-bottom: 1px solid #ddd;  background-color: #f2f2f2;">Total Price</th>
+              <th style="padding: 5px; border-bottom: 1px solid #ddd; background-color: #f2f2f2;">Item Name</th>
+              <th style="padding: 5px; border-bottom: 1px solid #ddd;  background-color: #f2f2f2;">Quantity</th>
+              <th style="padding: 5px; border-bottom: 1px solid #ddd;  background-color: #f2f2f2;">Total Price</th>
+              <th style="padding: 5px; border-bottom: 1px solid #ddd;  background-color: #f2f2f2;">Actions</th>
             </tr>
-        </thead>
-        <tbody>
-            <tr style= "hover: background-color: #f5f5f5;">
-                <td style="padding: 5px; border-bottom: 1px solid #ddd;">{{item.Item}}</td>
-                <td style="padding: 5px; border-bottom: 1px solid #ddd;">{{item.quantity}}</td>
-                <td style="padding: 5px; border-bottom: 1px solid #ddd;"><span>&#8377;</span>{{item.total_price}}</td>
-            </tr>
+          </thead>
+          <tbody>
+            {% for item in cart_items %}
+              <tr style="hover: background-color: #f5f5f5;">
+                <td style="padding: 5px; border-bottom: 1px solid #ddd;">{{ item.Item }}</td>
+                <td style="padding: 5px; border-bottom: 1px solid #ddd;">{{ item.quantity }}</td>
+                <td style="padding: 5px; border-bottom: 1px solid #ddd;"><span>&#8377;</span>{{ item.total_price }}</td>
+                <td style="padding: 5px; border-bottom: 1px solid #ddd;">
+                  <form method="post" id="updateQuantityForm" action="{% url 'cart:update_quantity' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="cart_item_id" value="{{ item.id }}">
+                    <button type="submit" name="action" value="increase" formmethod="post">Increase</button>
+                    <button type="submit" name="action" value="decrease" formmethod="post">Decrease</button>
+                  </form>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% else %}
+        <p>Your cart is empty</p>
+      {% endif %}
+    </div>
 
-        </tbody>
-    </table>
+    <script>
+      function updateQuantity(action) {
+        var form = $('#updateQuantityForm');
+        var formData = form.serializeArray();
+        formData.push({ name: 'action', value: action });
+    
+        $.ajax({
+          type: form.attr('method'),
+          url: form.attr('action'),
+          data: formData,
+          success: function (data) {
+            // Handle success response
+            console.log('Cart item updated successfully.');
+            // You can update the UI here if needed.
+          },
+          error: function (data) {
+            // Handle error response
+            console.log('Error updating cart item.');
+          }
+        });
+      }
+    </script>
 
-{% endfor %}
-<br>
-<br>
+    <p>Total amount: ₹{{ total_amount }}</p>
+    <br>
+    <br>
 
-<a style="color: green; border-radius:2px; " href="{% url 'cart:checkout' %}" class="text-lg font-semibold hover: text-gray- 500">Checkout</a>
-
-
-
-</div>
-
-
-
-{%endblock%}
+    <a style="color: green; border-radius:2px;" href="{% url 'cart:checkout' %}" class="text-lg font-semibold hover: text-gray- 500">Checkout</a>
+  </form>
+{% endblock %}

@@ -6,62 +6,121 @@
 <div class="w-1/2 my-6 mx-auto p-6 bg-gray-100 rounded-xl">
     <h1 class="mb-6 text-3xl">Sign up</h1>
 
-    <form method="post" id = "signup" action=".">
+    <form method="post" id = "signup" action="." novalidate>
         {% csrf_token %}
 
         <div class="mb-3">
-            <label class="inline-block mb-2">Username</label><br>
+            <label class="inline-block mb-2" for="username">Username</label><br>
             {{ form.username }}
-            {{ form.username.errors}}
+    
         </div>
 
         <div class="mb-3">
-            <label class="inline-block mb-2">Email</label><br>
+            <label class="inline-block mb-2" for="email">Email</label><br>
             {{ form.email }}
         </div>
 
         <div class="mb-3">
-            <label class="inline-block mb-2">Age</label><br>
+            <label class="inline-block mb-2" for="age">Age</label><br>
             {{ form.age }}
         </div>
 
         <div class="mb-3">
-            <label class="inline-block mb-2">Gender</label><br>
+            <label class="inline-block mb-2" for="gender">Gender</label><br>
             {{ form.gender }}
         </div>
 
         <div class="mb-3">
-            <label class="inline-block mb-2">BloodGroup</label><br>
+            <label class="inline-block mb-2" for="bloodgroup">BloodGroup</label><br>
             {{ form.bgroup }}
         </div>
 
 
         <div class="mb-3">
-            <label class="inline-block mb-2">Password</label><br>
+            <label class="inline-block mb-2" for="password">Password</label><br>
             {{ form.password1 }}
         </div>
 
         <div class="mb-3">
-            <label class="inline-block mb-2">Repeat password</label><br>
+            <label class="inline-block mb-2" for="repeatpassword">Repeat password</label><br>
             {{ form.password2 }}
         </div>
 
-        {% if form.errors or form.non_field_errors %}
-            <div class="mb-3 p-6 bg-red-100 rounded-xl">
-                {% for field in form %}
-                    {{ field.errors }}
-                {% endfor %}
+        
 
-                {{ form.non_field_errors }}
-            </div>
-        {% endif %}
 
-        <button class="py-4 px-8 text-lg bg-teal-500 hover:bg-teal-700 rounded-xl text-white">Submit</button>
+        <button id="submit" class="py-4 px-8 text-lg bg-teal-500 hover:bg-teal-700 rounded-xl text-white">Submit</button>
     </form>
 </div>
 
+<script>
+    console.log("working");
+    document.addEventListener('DOMContentLoaded', function () {
+        // Attach a submit event handler to the login form
+        document.getElementById('signup').addEventListener('submit', function (event) {
+            // Validate the username
+            var username = document.getElementById('username').value;
+            if (username.length === 0) {
+                alert('Username is required');
+                console.log("username is required");
+                event.preventDefault();  // Prevent form submission
+                return false;
+            }
+            //validate email
+            var email = document.getElementById('email').value;
+            if (email.length === 0) {
+                alert('email is required');
+                console.log("email is required");
+                event.preventDefault();  // Prevent form submission
+                return false;
+            }
+            //validate age
+
+            var age = document.getElementById('age').value;
+            if (age.length === 0) {
+                alert('age is required');
+                console.log("age is required");
+                event.preventDefault();  // Prevent form submission
+                return false;
+            }
+            //validate gender
+            var gender = document.getElementById('gender').value;
+            if (gender.length === 0) {
+                alert('gender is required');
+                console.log("gender is required");
+                event.preventDefault();  // Prevent form submission
+                return false;
+            }
+            //validate bloodgroup
+            var bloodgroup = document.getElementById("bloodgroup").value;
+            if (bloodgroup.length === 0){
+                alert("bloodgroup is required");
+                event.preventDefault();
+                return false;
+            }
 
 
 
+            // Validate the password
+            var password = document.getElementById('password').value;
+            if (password.length === 0) {
+                alert('Password is required');
+                console.log("password is required");
+                event.preventDefault();  // Prevent form submission
+                return false;
+            }
+            //validate for repeat password
+            var repeatpassword = document.getElementById("repeatpassword").value;
+            if (repeatpassword.length === 0){
+                alert("repeat password is required");
+                event.preventDefault();
+                return false;
+            }
+
+            // Form is valid, continue with submission
+            return true;
+        });
+    });
 </script>
+
 {% endblock %}

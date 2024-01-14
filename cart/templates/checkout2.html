@@ -1,0 +1,18 @@
+{%extends 'core/base.html'%}
+<script src="https://js.stripe.com/v3/"></script>
+
+<button id="checkout-button">Checkout</button>
+
+<script>
+    var stripe = Stripe('{{ settings.STRIPE_PUBLIC_KEY }}');
+    var checkoutButton = document.getElementById('checkout-button');
+
+    checkoutButton.addEventListener('click',
+ 
+function() {
+        stripe.redirectToCheckout({
+            sessionId: '{{ session_id }}'
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'core/base.html' %}
+{%block title%}Reviews{%endblock%}
+{% block content %}
+
+
+
+<h1>Reviews List</h1>
+
+{% for review in reviews %}
+  <div>
+    <p><strong>User:</strong> {{ review.user }}</p>
+    <p><strong>Product:</strong> {{ review.product }}</p>
+    <p><strong>Score:</strong> {{ review.score }}</p>
+    <p><strong>Comment:</strong> {{ review.comment }}</p>
+    <p><strong>Created At:</strong> {{ review.created_at }}</p>
+    <hr>  
+  </div>
+{% endfor %}
+
+
+{% endblock %}

@@ -36,16 +36,18 @@ class Prescription(models.Model):
 
 class Rating(models.Model):
     RATE_CHOICES = [
-        ('1', 'one'),
-        ('2', 'two'),
-        ('3', 'three'),
-        ('4', 'four'),
-        ('5', 'five'),
+        ('⭐', '⭐'),
+        ('⭐⭐', '⭐⭐'),
+        ('⭐⭐⭐', '⭐⭐⭐'),
+        ('⭐⭐⭐⭐', '⭐⭐⭐⭐'),
+        ('⭐⭐⭐⭐⭐', '⭐⭐⭐⭐⭐'),
     ]
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     product = models.ForeignKey(Item, on_delete=models.CASCADE)
     score = models.CharField(max_length=10, choices=RATE_CHOICES)
     comment = models.TextField(null=True, blank=True)  
     created_at = models.DateTimeField(auto_now_add=True)
-
+    
+    def __str__(self):
+        return f"{self.score} : {self.user} : {self.comment}"
 
